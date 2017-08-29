@@ -19,24 +19,28 @@
           <ul class="main-menu">
           <li>
           <a href="#">
-Biembenido :
+            Bienvenido :
               <%= current_user.email %>
 
 
           </a>
           </li>
+          <li>
+            <a href="#"> Mi Perfil</a>
+
+          </li>
 
 
             <li>
-              <a href="#"> Ver Tareas pendientes</a>
-
+              <a href="#">Mis tareas</a>
             </li>
             <li>
-              <a href="#"> Ver Profile</a>
-
+              <a href="#">Tareas de todos</a>
             </li>
+
+
             <li>
-              <%= link_to ' Cerrar Session'.html_safe, destroy_user_session_path, method: :delete %>
+              <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete %>
             </li>
 
 

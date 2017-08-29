@@ -21,9 +21,9 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-# development:
-#   <<: *default
-#   database: prolam
+development:
+  <<: *default
+  database: prolam
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ default: &default
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: prolam_test
+  database: prolam
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,8 +83,3 @@ production:
   database: prolam_production
   username: prolam
   password: <%= ENV['PROLAM_DATABASE_PASSWORD'] %>
-development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
