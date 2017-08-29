@@ -1,0 +1,22 @@
+
+.sidebar{
+    background-color: #6b7186;
+}
+.sidebar a{
+    color: white;
+}
+.sidebar li{
+
+    padding: 10px;
+    list-style: none;
+}
+body {
+  position: relative;
+  background: #fff;
+  color: #acacac;
+  font-family: "Varela Round", Arial, "Helvetica Neue", Helvetica, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+

@@ -9,6 +9,67 @@
   </head>
 
   <body>
-    <%= yield %>
+  <div class="row ">
+  <% if !current_user.nil? %>
+        <div class="col-md-3 btn-group-vertical">
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      <div class="si-inner">
+
+          <ul class="main-menu">
+          <li>
+          <a href="#">
+Biembenido :
+              <%= current_user.email %>
+
+
+          </a>
+          </li>
+
+
+            <li>
+              <a href="#"> Ver Tareas pendientes</a>
+
+            </li>
+            <li>
+              <a href="#"> Ver Profile</a>
+
+            </li>
+            <li>
+              <%= link_to ' Cerrar Session'.html_safe, destroy_user_session_path, method: :delete %>
+            </li>
+
+
+
+          <li><a href="/"> Inicio</a></li>
+          <% if current_user.is_colaborador? %>
+              <li><a href="/home/index" > Link unico de colaborador</a></li>
+
+
+          <% end %>
+          <% if current_user.is_admin? %>
+              <li><a href="/admin/users/IMPLEMENTAR" >Link unico de admin</a></li>
+
+          <% end %>
+
+
+
+
+        </ul>
+      </div>
+    </div>
+  </aside></div>
+
+      <% end %>
+    <div class="col-md-9">
+      <section id="content">
+      <div class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+       <%= yield %>
+      </div>
+      </section>
+    </div>
+  </div>
   </body>
 </html>
