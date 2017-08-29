@@ -11,44 +11,37 @@
 <body>
 <div class="row ">
   <% if !current_user.nil? %>
-      <div class="col-md-3 btn-group-vertical">
-        <aside id="sidebar" class="sidebar">
-          <div class="sidebar-inner">
-            <div class="si-inner">
-
-              <ul class="main-menu">
-                <li>
-                  <a href="#">
+      <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+              <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
                     Bienvenido :
                     <%= current_user.email %>
                   </a>
                 </li>
-                <li>
-                  <%= link_to 'Mi Perfil', edit_user_path(current_user) %>
+                <li class="nav-item">
+                  <%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%>
                 </li>
-                <li>
-                  <a href="#">Mis tareas</a>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Mis tareas</a>
                 </li>
-                <li>
-                  <a href="#">Tareas de todos</a>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Tareas de todos</a>
                 </li>
-                <li>
-                  <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete %>
+                <li class="nav-item">
+                  <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete,:class => "nav-link" %>
                 </li>
-                <li><a href="/"> Inicio</a></li>
+                <li class="nav-item"><a href="/" class="nav-link  <%= active_class("/")%>"> Inicio</a></li>
                 <% if current_user.is_colaborador? %>
-                    <li><a href="/home/index"> Link unico de colaborador</a></li>
+                    <li class="nav-item"><a href="/home/index" class="nav-link"> Link unico de colaborador</a></li>
                 <% end %>
                 <% if current_user.is_admin? %>
-                    <li><a href="/admin/users/IMPLEMENTAR">Link unico de admin</a></li>
+                    <li class="nav-item"><a href="/admin/users/IMPLEMENTAR" class="nav-link">Link unico de admin</a></li>
                 <% end %>
               </ul>
-            </div>
-          </div>
-        </aside>
-      </div>
+      </nav>
   <% end %>
-  <div class="col-md-9">
+  <div class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
     <section id="content">
       <!--<div class="container">-->
         <p class="notice"><%= notice %></p>

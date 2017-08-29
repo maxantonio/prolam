@@ -7,7 +7,7 @@ end
 
 #agregando devise para el manejo de usuario
 gem 'devise'
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.0.0.alpha6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
 # Use postgresql as the database for Active Record
@@ -35,7 +35,7 @@ gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
