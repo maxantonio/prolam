@@ -19,17 +19,25 @@
   <% if !current_user.nil? %>
       <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
               <ul class="nav nav-pills flex-column">
+
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    Bienvenido :
+                  <div class="row">
+                  <div id="userimgpre" class="avatar_menu ">
+                    <%= avatar_menu(current_user, "img_prev") %>
+                  </div>
+                  <div class="col-md-9">
+                    Biembenido:<br/>
+                  <a href="#" class="">
                     <%= current_user.email %>
                   </a>
+                  </div>
+                  </div>
                 </li>
                 <li class="nav-item">
                   <%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Mis tareas</a>
+                  <a href="/" class="nav-link <%= active_class("/")%>">Mis tareas</a>
                 </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">Tareas de todos</a>
@@ -37,7 +45,7 @@
                 <li class="nav-item">
                   <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete,:class => "nav-link" %>
                 </li>
-                <li class="nav-item"><a href="/" class="nav-link  <%= active_class("/")%>"> Inicio</a></li>
+
                 <% if current_user.is_colaborador? %>
                     <li class="nav-item"><a href="/home/index" class="nav-link"> Link unico de colaborador</a></li>
                 <% end %>

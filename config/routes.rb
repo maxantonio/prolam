@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :tareas
+  resources :proyectos
+  resources :estados
+  resources :categoria
   get 'home/index'
 
   devise_for :users
