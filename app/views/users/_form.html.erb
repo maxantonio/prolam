@@ -1,0 +1,135 @@
+<%= form_for(user) do |f| %>
+
+      <div class="col-md-8">
+        <div class="form-group fg-float
+        <% if user.errors[:email].any? %> <%= "has-error has-feedback" %>
+        <% end %>">
+          <div class="fg-line">
+            <%= f.email_field :email, class: 'form-control input-sm' %>
+          </div>
+          <label class="fg-label">Email</label>
+          <% user.errors[:email].each do |message| %>
+              <li>
+                <footer><%= message %></footer>
+              </li>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="col-md-8">
+        <div class="form-group fg-float
+      <% if user.errors[:password].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+          <div class="fg-line">
+            <%= f.password_field :password, class: 'form-control input-sm' %>
+          </div>
+          <label class="fg-label">Contraseña</label>
+          <% user.errors[:password].each do |message| %>
+              <li>
+                <footer><%= message %></footer>
+              </li>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="col-md-8">
+        <div class="form-group fg-float
+      <% if user.errors[:username].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+          <div class="fg-line">
+            <%= f.text_field :username, class: 'form-control input-sm' %>
+          </div>
+          <label class="fg-label">Usuario</label>
+          <% user.errors[:username].each do |message| %>
+              <li>
+                <footer><%= message %></footer>
+              </li>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="col-md-8">
+        <div class="form-group fg-float
+      <% if user.errors[:first_name].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+          <div class="fg-line">
+            <%= f.text_field :first_name, class: 'form-control input-sm' %>
+          </div>
+          <label class="fg-label">Nombre</label>
+          <% user.errors[:first_name].each do |message| %>
+              <li>
+                <footer><%= message %></footer>
+              </li>
+          <% end %>
+        </div>
+      </div>
+
+
+      <div class="col-md-8">
+        <div class="form-group fg-float
+      <% if user.errors[:last_name].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+          <div class="fg-line">
+            <%= f.text_field :last_name, class: 'form-control input-sm' %>
+          </div>
+          <label class="fg-label">Apellido</label>
+          <% user.errors[:last_name].each do |message| %>
+              <li>
+                <footer><%= message %></footer>
+              </li>
+          <% end %>
+        </div>
+      </div>
+    <!--COMIENZO DEL AVATAR PEDINETE TODAVIA ****USAR PAPERCLIP-->
+    <div class="col-md-8">
+      <div class="form-group fg-float
+      <% if user.errors[:avatar].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+        <div class="fg-line">
+          <%= f.file_field :avatar, class: 'form-control input-sm' %>
+        </div>
+        <label class="fg-label">Avatar</label>
+        <% user.errors[:avatar].each do |message| %>
+            <li>
+              <footer><%= message %></footer>
+            </li>
+        <% end %>
+      </div>
+    </div>
+  <!--FIN DEL AVATAR-->
+    <% if user.email != 'admin@gmail.com' && current_user.is_admin? %>
+
+          <div class="col-md-8 col-xs-offset-6">
+            <div class="form-group fg-float
+      <% if user.errors[:permission_level].any? %> <%= "has-error has-feedback" %>
+      <% end %>">
+              <div class="fg-line">
+                <%= select_tag(:permission_level, options_for_select([['Invitado', 1], ['Editor', 2], ['Administrador',3]], user.permission_level), class: 'form-control') %>
+              </div>
+              <label class="fg-label">Rol</label>
+              <% user.errors[:permission_level].each do |message| %>
+                  <li>
+                    <footer><%= message %></footer>
+                  </li>
+              <% end %>
+            </div>
+          </div>
+
+
+
+    <% end %>
+
+      <div class="col-xs-4">
+        <div class="form-group fg-float">
+          <%= f.submit "Save", class: "btn btn-default btn-success pull-left" %>
+        </div>
+      </div>
+
+<% end %>
+
+
+
+
