@@ -18,49 +18,32 @@
 
   <div class="form-group">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :tarea_user_id ,:class =>"form-control"%>
+    <%= form.collection_select :user_id, User.all, :id, :username,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
+
   </div>
 
   <div class="form-group">
     <%= form.label :categoria_id %>
-      <br/>
-
-      <%= form.collection_select :categoria_id, Categorium.all, :id, :nombre,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
+      <%= form.collection_select :categoria_id, Categoria.all, :id, :nombre,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
     </div>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :estado_id %>
-    <%= form.text_field :estado_id, id: :tarea_estado_id ,:class =>"form-control"%>
-  </div>
 
   <div class="form-group">
     <%= form.label :fecha_asignacion %>
     <%= form.date_select :fecha_asignacion, id: :tarea_fecha_asignacion,:class =>"form-control" %>
   </div>
-<br/>
-  <div class="form-group">
-    <%= form.label :fecha_inicio %>
-    <%= form.date_select :fecha_inicio, id: :tarea_fecha_inicio,:class =>"form-control"%>
-  </div>
-    <br/>
-
+  <br/>
   <div class="form-group">
     <%= form.label :fecha_fin %>
     <%= form.date_select :fecha_fin, id: :tarea_fecha_fin ,:class =>"form-control"%>
   </div>
-    <br/>
-
-  <div class="form-group">
-    <%= form.label :fecha_fin_real %>
-    <%= form.date_select :fecha_fin_real, id: :tarea_fecha_fin_real ,:class =>"form-control"%>
-  </div>
-
   <div class="form-group">
     <%= form.label :proyecto_id %>
-    <%= form.text_field :proyecto_id, id: :tarea_proyecto_id,:class =>"form-control" %>
+    <%= form.collection_select :proyecto_id, Proyecto.all, :id, :nombre,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
   </div>
-
+    <div class="form-group">
+      <%= form.label :estado_id %>
+      <%= form.collection_select :estado_id, Estado.all, :id, :estado,{class:"form-control"},class:"form-control"%>
+    </div>
   <div class="actions">
     <%= form.submit %>
   </div>

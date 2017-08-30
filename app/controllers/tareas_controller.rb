@@ -1,6 +1,6 @@
 class TareasController < ApplicationController
   before_action :set_tarea, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /tareas
   # GET /tareas.json
   def index
@@ -15,6 +15,7 @@ class TareasController < ApplicationController
   # GET /tareas/new
   def new
     @tarea = Tarea.new
+    @tarea.estado_id = 1 #CREADA
   end
 
   # GET /tareas/1/edit
@@ -69,6 +70,6 @@ class TareasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tarea_params
-      params.require(:tarea).permit(:nombre, :user_id, :categoria_id, :estado_id, :fecha_asignacion, :fecha_inicio, :fecha_fin, :fecha_fin_real, :proyecto_id)
+      params.require(:tarea).permit(:nombre, :user_id,:categorium_id, :categoria_id, :estado_id, :fecha_asignacion, :fecha_inicio, :fecha_fin, :fecha_fin_real, :proyecto_id)
     end
 end

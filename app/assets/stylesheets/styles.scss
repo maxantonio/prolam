@@ -13,24 +13,13 @@
 body {
   position: relative;
   background: #fff;
-  color: #acacac;
+  color: #1c2748;
   font-family: "Varela Round", Arial, "Helvetica Neue", Helvetica, serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
 }
 
-.sidebar {
-    border-right: 1px solid #eee;
-    bottom: 0;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 20px;
-    position: fixed;
-    top: 51px;
-    z-index: 1000;
-}
 .bg-light {
     background-color: #f8f9fa;
 }
@@ -72,4 +61,17 @@ h1 {
 }
 .user_name{
     float: left;
+}
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
 }

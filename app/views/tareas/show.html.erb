@@ -6,18 +6,18 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @tarea.user %>
+  <strong>Responsable:</strong>
+  <%= @tarea.user.nil?? "Sin Asignar":@tarea.user.username %>
 </p>
 
 <p>
   <strong>Categoria:</strong>
-  <%= @tarea.categoria %>
+  <%= @tarea.categoria.nil?? "":@tarea.categoria.nombre %>
 </p>
 
 <p>
   <strong>Estado:</strong>
-  <%= @tarea.estado %>
+  <%= @tarea.estado.nil?? "":@tarea.estado.estado %>
 </p>
 
 <p>
@@ -42,7 +42,7 @@
 
 <p>
   <strong>Proyecto:</strong>
-  <%= @tarea.proyecto %>
+  <%= @tarea.proyecto.nil?? "Sin proyecto":@tarea.proyecto.nombre %>
 </p>
 
 <%= link_to 'Edit', edit_tarea_path(@tarea) %> |
