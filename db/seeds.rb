@@ -25,3 +25,8 @@ Proyecto.create(nombre:"Agora",urlgithub:"https://github.com/maxantonio/agora",u
 Proyecto.create(nombre:"Ford",urlgithub:"",user_id:3)
 Proyecto.create(nombre:"Kasa",urlgithub:"",user_id:3)
 Proyecto.create(nombre:"Apple",urlgithub:"",user_id:3)
+
+Tarea.create(nombre:"Revision de responsividad agora",user_id:3,categoria_id:1,estado_id:2,fecha_asignacion:Time.now,fecha_fin:Time.now + 1.week)
+Tarea.create(nombre:"Mail de entrega de kasa",user_id:3,categoria_id:2,estado_id:2,fecha_asignacion:Time.now,fecha_fin:Time.now + 1.week)
+Tarea.create(nombre:"Mail de entrega de Ford",user_id:4,categoria_id:2,estado_id:2,fecha_asignacion:Time.now,fecha_fin:Time.now + 1.week)
+Tarea.create(nombre:"Visita a Apple",user_id:4,categoria_id:2,estado_id:2,fecha_asignacion:Time.now,fecha_fin:Time.now + 1.week)
