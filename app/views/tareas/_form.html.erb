@@ -1,4 +1,4 @@
-<%= form_with(model: tarea, local: true) do |form| %>
+<%= form_with(model: tarea, local: true,class:"form") do |form| %>
   <% if tarea.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tarea.errors.count, "error") %> prohibited this tarea from being saved:</h2>
@@ -11,49 +11,54 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :nombre %>
-    <%= form.text_field :nombre, id: :tarea_nombre %>
+    <%= form.text_field :nombre, id: :tarea_nombre,:class =>"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :tarea_user_id %>
+    <%= form.text_field :user_id, id: :tarea_user_id ,:class =>"form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :categoria_id %>
-    <%= form.text_field :categoria_id, id: :tarea_categoria_id %>
+      <br/>
+
+      <%= form.collection_select :categoria_id, Categorium.all, :id, :nombre,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
+    </div>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :estado_id %>
-    <%= form.text_field :estado_id, id: :tarea_estado_id %>
+    <%= form.text_field :estado_id, id: :tarea_estado_id ,:class =>"form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :fecha_asignacion %>
-    <%= form.date_select :fecha_asignacion, id: :tarea_fecha_asignacion %>
+    <%= form.date_select :fecha_asignacion, id: :tarea_fecha_asignacion,:class =>"form-control" %>
   </div>
-
-  <div class="field">
+<br/>
+  <div class="form-group">
     <%= form.label :fecha_inicio %>
-    <%= form.date_select :fecha_inicio, id: :tarea_fecha_inicio %>
+    <%= form.date_select :fecha_inicio, id: :tarea_fecha_inicio,:class =>"form-control"%>
   </div>
+    <br/>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :fecha_fin %>
-    <%= form.date_select :fecha_fin, id: :tarea_fecha_fin %>
+    <%= form.date_select :fecha_fin, id: :tarea_fecha_fin ,:class =>"form-control"%>
   </div>
+    <br/>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :fecha_fin_real %>
-    <%= form.date_select :fecha_fin_real, id: :tarea_fecha_fin_real %>
+    <%= form.date_select :fecha_fin_real, id: :tarea_fecha_fin_real ,:class =>"form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :proyecto_id %>
-    <%= form.text_field :proyecto_id, id: :tarea_proyecto_id %>
+    <%= form.text_field :proyecto_id, id: :tarea_proyecto_id,:class =>"form-control" %>
   </div>
 
   <div class="actions">
