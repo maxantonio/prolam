@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  user: one
+  categoria: one
+  estado: one
+  fecha_asignacion: 2017-08-30
+  fecha_inicio: 2017-08-30
+  fecha_fin: 2017-08-30
+  fecha_fin_real: 2017-08-30
+  proyecto: one
+
+two:
+  nombre: MyString
+  user: two
+  categoria: two
+  estado: two
+  fecha_asignacion: 2017-08-30
+  fecha_inicio: 2017-08-30
+  fecha_fin: 2017-08-30
+  fecha_fin_real: 2017-08-30
+  proyecto: two

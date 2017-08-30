@@ -18,10 +18,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   version :avatar do
-    process :resize_to_fit => [80, 80]
+    process :resize_to_fit => [100, 100]
   end
   version :avatar_sizemenu do
-    process :resize_to_fit => [20, 20]
+    process :resize_to_fit => [50, 50]
   end
   # Create different versions of your uploaded files:
   

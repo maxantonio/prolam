@@ -19,11 +19,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
 }
-#userimgpre > #img_prev {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
+
 .sidebar {
     border-right: 1px solid #eee;
     bottom: 0;
@@ -60,4 +56,20 @@ h1 {
 
     direction: ltr;
     cursor: pointer;
+}
+#userimgpre > .img_prev {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.avatar_menu{
+    width: 50px;
+    height: 50px;
+    border: 2px solid;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    float: left;
+}
+.user_name{
+    float: left;
 }
