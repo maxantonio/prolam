@@ -19,6 +19,13 @@
   <% if !current_user.nil? %>
       <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
               <ul class="nav nav-pills flex-column">
+                <li>
+                  <div class="text-center">
+                    <div id="userimgpre" class="" style="width: 100px; height: 100px; border: 2px solid; border-radius: 50%; margin-bottom: 10px;">
+                      <%= avatar_for(current_user, "img_prev","") %>
+                    </div>
+                  </div>
+                </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     Bienvenido :
