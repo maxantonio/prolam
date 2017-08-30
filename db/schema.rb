@@ -10,10 +10,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829201908) do
+ActiveRecord::Schema.define(version: 20170830175853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categoria", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "estados", force: :cascade do |t|
+    t.string "estado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "proyectos", force: :cascade do |t|
+    t.string "nombre"
+    t.string "urlgithub"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_proyectos_on_user_id"
+  end
+
+  create_table "tareas", force: :cascade do |t|
+    t.string "nombre"
+    t.bigint "user_id"
+    t.bigint "categoria_id"
+    t.bigint "estado_id"
+    t.date "fecha_asignacion"
+    t.date "fecha_inicio"
+    t.date "fecha_fin"
+    t.date "fecha_fin_real"
+    t.bigint "proyecto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["categoria_id"], name: "index_tareas_on_categoria_id"
+    t.index ["estado_id"], name: "index_tareas_on_estado_id"
+    t.index ["proyecto_id"], name: "index_tareas_on_proyecto_id"
+    t.index ["user_id"], name: "index_tareas_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,4 +76,9 @@ ActiveRecord::Schema.define(version: 20170829201908) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "proyectos", "users"
+  add_foreign_key "tareas", "categoria", column: "categoria_id"
+  add_foreign_key "tareas", "estados"
+  add_foreign_key "tareas", "proyectos"
+  add_foreign_key "tareas", "users"
 end
