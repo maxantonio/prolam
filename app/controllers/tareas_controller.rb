@@ -1,5 +1,5 @@
 class TareasController < ApplicationController
-  before_action :set_tarea, only: [:show, :edit, :update, :destroy]
+  before_action :set_tarea, only: [:show, :edit, :update, :destroy, :iniciar, :terminar]
   before_action :authenticate_user!
   # GET /tareas
   # GET /tareas.json
@@ -22,6 +22,20 @@ class TareasController < ApplicationController
   def edit
   end
 
+  # GET /iniciar/tarea?id=#
+  def iniciar
+    @tarea.estado_id = 3 # estado iniciada
+    @tarea.fecha_inicio = Date.today
+    @tarea.save()
+    redirect_to root_url
+  end
+  # GET /terminar/tarea?id=#
+  def terminar
+    @tarea.estado_id = 4 # estado iniciada
+    @tarea.fecha_fin_real = Date.today
+    @tarea.save()
+    redirect_to root_url
+  end
   # POST /tareas
   # POST /tareas.json
   def create

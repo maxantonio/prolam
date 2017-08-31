@@ -2,6 +2,20 @@ module ApplicationHelper
   def active_class(link_path)
     current_page?(link_path) ? "active" : ""
   end
+  def tarea_terminada_atrasada(fecha,fecha_real)
+    if fecha < fecha_real
+      return "alert-danger"
+    end
+    return "alert-success"
+  end
+  def tarea_atrasada(fecha)
+    if fecha == Date.today
+      return "alert-warning"
+    elsif fecha < Date.today
+      return "alert-danger"
+    end
+    return "alert-info"
+  end
   def avatar_for(user,cl,id)
     if !user.avatar?
       # image_tag user.avatar.default_url, id:cl, class:cl
