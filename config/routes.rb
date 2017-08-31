@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :estados
   resources :categoria
   get 'home/index'
-
+  get 'iniciar/tarea'=>'tareas#iniciar'
+  get 'terminar/tarea'=>'tareas#terminar'
   devise_for :users
   scope "/admin" do
     resources :users
