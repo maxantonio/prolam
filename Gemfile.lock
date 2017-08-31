@@ -44,7 +44,13 @@ GEM
     autoprefixer-rails (7.1.3)
       execjs
     bcrypt (3.1.11)
+    better_errors (2.2.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     bindex (0.5.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap (4.0.0.alpha6)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
@@ -66,6 +72,7 @@ GEM
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -75,6 +82,7 @@ GEM
     coffee-script-source (1.8.0)
     concurrent-ruby (1.0.5)
     daemons (1.2.4)
+    debug_inspector (0.0.3)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -82,11 +90,14 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.6.1)
+    erubis (2.7.0)
     eventmachine (1.2.5)
     eventmachine (1.2.5-x86-mingw32)
     execjs (2.7.0)
     ffi (1.9.18)
     ffi (1.9.18-x86-mingw32)
+    font-awesome-rails (4.7.0.2)
+      railties (>= 3.2, < 5.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     i18n (0.8.6)
@@ -228,6 +239,8 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  better_errors
+  binding_of_caller
   bootstrap (= 4.0.0.alpha6)
   byebug
   capybara (~> 2.13)
@@ -235,6 +248,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   coffee-script-source (= 1.8.0)
   devise
+  font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

@@ -26,10 +26,11 @@
                     <%= avatar_menu(current_user, "img_prev") %>
                   </div>
                   <div class="col-md-9">
-                    Bienvenido:<br/>
+                    <!-- Bienvenido:<br/> -->
                   <a href="#" class="">
-                    <%= current_user.email %>
+                    <%= current_user.username %> <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
                   </a>
+                  
                   </div>
                   </div>
                 </li>
@@ -37,10 +38,10 @@
                   <%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%>
                 </li>
                 <li class="nav-item">
-                  <a href="/" class="nav-link <%= active_class("/")%>">Mis tareas</a>
+                  <a href="/" class="nav-link <%= active_class("/")%>">Mis tareas activas</a>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "Tareas de todos",tareas_path,:class => "nav-link #{active_class(tareas_path)}" %>
+                  <%= link_to "Tareas activas de todos",tareas_path,:class => "nav-link #{active_class(tareas_path)}" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete,:class => "nav-link" %>

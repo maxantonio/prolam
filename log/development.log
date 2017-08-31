@@ -11935,3 +11935,1120 @@ Processing by TareasController#index as HTML
 Completed 200 OK in 312ms (Views: 293.5ms | ActiveRecord: 4.0ms)
 
 
+  [1m[35m (1005.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (71.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2915388857214964515)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20170828225352)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (68.5ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "permission_level" integer DEFAULT 1, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (16.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (16.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (16.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170828225352"]]
+  [1m[35m (37.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddAvatarToUsers (20170829014617)
+  [1m[35m (14.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "avatar" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170829014617"]]
+  [1m[35m (16.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddUsernameToUsers (20170829201908)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "username" character varying[0m
+  [1m[35m (6.5ms)[0m  [1m[35mALTER TABLE "users" ADD "first_name" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_name" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170829201908"]]
+  [1m[35m (16.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEstados (20170830174416)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3012.2ms)[0m  [1m[35mCREATE TABLE "estados" ("id" bigserial primary key, "estado" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170830174416"]]
+  [1m[35m (32.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProyectos (20170830174538)
+  [1m[35m (15.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (82.2ms)[0m  [1m[35mCREATE TABLE "proyectos" ("id" bigserial primary key, "nombre" character varying, "urlgithub" character varying, "user_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_7f11443020"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (23.8ms)[0m  [1m[35mCREATE  INDEX  "index_proyectos_on_user_id" ON "proyectos"  ("user_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170830174538"]]
+  [1m[35m (28.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCategoria (20170830175008)
+  [1m[35m (531.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (287.9ms)[0m  [1m[35mCREATE TABLE "categoria" ("id" bigserial primary key, "nombre" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170830175008"]]
+  [1m[35m (40.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTareas (20170830175853)
+  [1m[35m (15.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (120.3ms)[0m  [1m[35mCREATE TABLE "tareas" ("id" bigserial primary key, "nombre" character varying, "user_id" bigint, "categoria_id" bigint, "estado_id" bigint, "fecha_asignacion" date, "fecha_inicio" date, "fecha_fin" date, "fecha_fin_real" date, "proyecto_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_b2576a24b7"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_d9577784e6"
+FOREIGN KEY ("categoria_id")
+  REFERENCES "categoria" ("id")
+, CONSTRAINT "fk_rails_7901893676"
+FOREIGN KEY ("estado_id")
+  REFERENCES "estados" ("id")
+, CONSTRAINT "fk_rails_7173f3ffae"
+FOREIGN KEY ("proyecto_id")
+  REFERENCES "proyectos" ("id")
+)[0m
+  [1m[35m (25.9ms)[0m  [1m[35mCREATE  INDEX  "index_tareas_on_user_id" ON "tareas"  ("user_id")[0m
+  [1m[35m (17.4ms)[0m  [1m[35mCREATE  INDEX  "index_tareas_on_categoria_id" ON "tareas"  ("categoria_id")[0m
+  [1m[35m (17.1ms)[0m  [1m[35mCREATE  INDEX  "index_tareas_on_estado_id" ON "tareas"  ("estado_id")[0m
+  [1m[35m (17.0ms)[0m  [1m[35mCREATE  INDEX  "index_tareas_on_proyecto_id" ON "tareas"  ("proyecto_id")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170830175853"]]
+  [1m[35m (66.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (15.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-08-31 21:55:56.679017"], ["updated_at", "2017-08-31 21:55:56.679017"]]
+  [1m[35m (31.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2915388857214964515)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (12.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (16.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "davidrm901503@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (27.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "username", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "davidrm901503@gmail.com"], ["encrypted_password", "$2a$11$Mo0lURinKvCMMBxjnsWgSeKyb.KfxmdQWWv14XDKNOKyFXVFrN44e"], ["created_at", "2017-08-31 21:58:58.799667"], ["updated_at", "2017-08-31 21:58:58.799667"], ["username", "david"], ["first_name", "David"], ["last_name", "Roman"]]
+  [1m[35m (12.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "yoidel86@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "permission_level", "created_at", "updated_at", "username", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "yoidel86@gmail.com"], ["encrypted_password", "$2a$11$9Nw6G0l3mH8C6wteB5BwBOCOtMD.LV/VkMPeNq2GXdYwb078qM70S"], ["permission_level", 3], ["created_at", "2017-08-31 21:58:59.039955"], ["updated_at", "2017-08-31 21:58:59.039955"], ["username", "yoidel86"], ["first_name", "Yoidel"], ["last_name", "Martinez"]]
+  [1m[35m (10.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "admin@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "permission_level", "created_at", "updated_at", "username", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "admin@gmail.com"], ["encrypted_password", "$2a$11$EkCgQ08TgXcsaZGd20lAiOHu8VSeFlpEl8VGYJ/g0Xgbn8PjlGEV6"], ["permission_level", 3], ["created_at", "2017-08-31 21:58:59.245443"], ["updated_at", "2017-08-31 21:58:59.245443"], ["username", "admin"], ["first_name", "System"], ["last_name", "Admin"]]
+  [1m[35m (8.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "colaborador@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "created_at", "updated_at", "username", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "colaborador@gmail.com"], ["encrypted_password", "$2a$11$Y45IpXSE2.sdutu7Gv5gB.8tTW.xJniHx/09S8bNKlQYSODv90J6G"], ["created_at", "2017-08-31 21:58:59.445092"], ["updated_at", "2017-08-31 21:58:59.445092"], ["username", "colaborador"], ["first_name", "Colaborador"], ["last_name", "Ejemplo"]]
+  [1m[35m (8.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (22.1ms)[0m  [1m[32mINSERT INTO "estados" ("estado", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["estado", "Creada"], ["created_at", "2017-08-31 21:58:59.508817"], ["updated_at", "2017-08-31 21:58:59.508817"]]
+  [1m[35m (15.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "estados" ("estado", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["estado", "Asignada"], ["created_at", "2017-08-31 21:58:59.563774"], ["updated_at", "2017-08-31 21:58:59.563774"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "estados" ("estado", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["estado", "Iniciada"], ["created_at", "2017-08-31 21:58:59.567536"], ["updated_at", "2017-08-31 21:58:59.567536"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "estados" ("estado", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["estado", "Terminada"], ["created_at", "2017-08-31 21:58:59.570176"], ["updated_at", "2017-08-31 21:58:59.570176"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (35.9ms)[0m  [1m[32mINSERT INTO "categoria" ("nombre", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["nombre", "Desarrollo web"], ["created_at", "2017-08-31 21:58:59.606878"], ["updated_at", "2017-08-31 21:58:59.606878"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "categoria" ("nombre", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["nombre", "Ventas"], ["created_at", "2017-08-31 21:58:59.645531"], ["updated_at", "2017-08-31 21:58:59.645531"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (18.9ms)[0m  [1m[32mINSERT INTO "proyectos" ("nombre", "urlgithub", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["nombre", "Agora"], ["urlgithub", "https://github.com/maxantonio/agora"], ["user_id", 3], ["created_at", "2017-08-31 21:58:59.754252"], ["updated_at", "2017-08-31 21:58:59.754252"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "proyectos" ("nombre", "urlgithub", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["nombre", "Ford"], ["urlgithub", ""], ["user_id", 3], ["created_at", "2017-08-31 21:58:59.780742"], ["updated_at", "2017-08-31 21:58:59.780742"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "proyectos" ("nombre", "urlgithub", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["nombre", "Kasa"], ["urlgithub", ""], ["user_id", 3], ["created_at", "2017-08-31 21:58:59.786084"], ["updated_at", "2017-08-31 21:58:59.786084"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "proyectos" ("nombre", "urlgithub", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["nombre", "Apple"], ["urlgithub", ""], ["user_id", 3], ["created_at", "2017-08-31 21:58:59.790440"], ["updated_at", "2017-08-31 21:58:59.790440"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (35.6ms)[0m  [1m[32mINSERT INTO "tareas" ("nombre", "user_id", "categoria_id", "estado_id", "fecha_asignacion", "fecha_fin", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["nombre", "Revision de responsividad agora"], ["user_id", 3], ["categoria_id", 1], ["estado_id", 2], ["fecha_asignacion", "2017-08-31"], ["fecha_fin", "2017-09-07"], ["created_at", "2017-08-31 21:58:59.870072"], ["updated_at", "2017-08-31 21:58:59.870072"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "tareas" ("nombre", "user_id", "categoria_id", "estado_id", "fecha_asignacion", "fecha_fin", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["nombre", "Mail de entrega de kasa"], ["user_id", 3], ["categoria_id", 2], ["estado_id", 2], ["fecha_asignacion", "2017-08-31"], ["fecha_fin", "2017-09-07"], ["created_at", "2017-08-31 21:58:59.910233"], ["updated_at", "2017-08-31 21:58:59.910233"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tareas" ("nombre", "user_id", "categoria_id", "estado_id", "fecha_asignacion", "fecha_fin", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["nombre", "Mail de entrega de Ford"], ["user_id", 4], ["categoria_id", 2], ["estado_id", 2], ["fecha_asignacion", "2017-08-31"], ["fecha_fin", "2017-09-07"], ["created_at", "2017-08-31 21:58:59.914619"], ["updated_at", "2017-08-31 21:58:59.914619"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "tareas" ("nombre", "user_id", "categoria_id", "estado_id", "fecha_asignacion", "fecha_fin", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["nombre", "Visita a Apple"], ["user_id", 4], ["categoria_id", 2], ["estado_id", 2], ["fecha_asignacion", "2017-08-31"], ["fecha_fin", "2017-09-07"], ["created_at", "2017-08-31 21:58:59.917970"], ["updated_at", "2017-08-31 21:58:59.917970"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:00:52 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.4ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE Categoria Load (0.0ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mCACHE Estado Load (0.0ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (404.3ms)
+  Rendered layouts/_navigation_links.html.erb (3.5ms)
+  Rendered layouts/_navigation.html.erb (9.9ms)
+Completed 200 OK in 4265ms (Views: 3834.7ms | ActiveRecord: 20.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:32:17 -0400
+  [1m[35m (27.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.5ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (80.6ms)
+  Rendered layouts/_navigation_links.html.erb (2.3ms)
+  Rendered layouts/_navigation.html.erb (29.3ms)
+Completed 200 OK in 16869ms (Views: 16694.8ms | ActiveRecord: 19.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:34:52 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.5ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.4ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (16.6ms)
+  Rendered layouts/_navigation_links.html.erb (1.9ms)
+  Rendered layouts/_navigation.html.erb (21.3ms)
+Completed 200 OK in 157ms (Views: 132.3ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:39 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.9ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (18.5ms)
+  Rendered layouts/_navigation_links.html.erb (1.6ms)
+  Rendered layouts/_navigation.html.erb (15.2ms)
+Completed 200 OK in 181ms (Views: 153.9ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:41 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (18.6ms)
+  Rendered layouts/_navigation_links.html.erb (2.4ms)
+  Rendered layouts/_navigation.html.erb (6.9ms)
+Completed 200 OK in 127ms (Views: 114.0ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:41 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (13.3ms)
+  Rendered layouts/_navigation_links.html.erb (2.9ms)
+  Rendered layouts/_navigation.html.erb (7.7ms)
+Completed 200 OK in 139ms (Views: 128.7ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:42 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (1.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (23.4ms)
+  Rendered layouts/_navigation_links.html.erb (3.5ms)
+  Rendered layouts/_navigation.html.erb (6.7ms)
+Completed 200 OK in 158ms (Views: 144.4ms | ActiveRecord: 5.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:42 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.8ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (24.2ms)
+  Rendered layouts/_navigation_links.html.erb (2.7ms)
+  Rendered layouts/_navigation.html.erb (6.3ms)
+Completed 200 OK in 147ms (Views: 130.4ms | ActiveRecord: 5.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:45 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.7ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.4ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (23.2ms)
+  Rendered layouts/_navigation_links.html.erb (2.1ms)
+  Rendered layouts/_navigation.html.erb (4.9ms)
+Completed 200 OK in 130ms (Views: 116.6ms | ActiveRecord: 4.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:46 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.6ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (1.0ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (28.5ms)
+  Rendered layouts/_navigation_links.html.erb (3.1ms)
+  Rendered layouts/_navigation.html.erb (7.2ms)
+Completed 200 OK in 130ms (Views: 116.2ms | ActiveRecord: 6.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:47 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (17.1ms)
+  Rendered layouts/_navigation_links.html.erb (2.8ms)
+  Rendered layouts/_navigation.html.erb (7.1ms)
+Completed 200 OK in 122ms (Views: 110.7ms | ActiveRecord: 4.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:37:51 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (1.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (18.9ms)
+  Rendered layouts/_navigation_links.html.erb (2.0ms)
+  Rendered layouts/_navigation.html.erb (7.6ms)
+Completed 200 OK in 139ms (Views: 126.5ms | ActiveRecord: 4.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:38:15 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (12.8ms)
+  Rendered layouts/_navigation_links.html.erb (2.2ms)
+  Rendered layouts/_navigation.html.erb (13.5ms)
+Completed 200 OK in 135ms (Views: 122.8ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:38:38 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (13.2ms)
+  Rendered layouts/_navigation_links.html.erb (1.7ms)
+  Rendered layouts/_navigation.html.erb (4.5ms)
+Completed 200 OK in 85ms (Views: 76.0ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:38:51 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (13.9ms)
+  Rendered layouts/_navigation_links.html.erb (2.3ms)
+  Rendered layouts/_navigation.html.erb (5.2ms)
+Completed 200 OK in 86ms (Views: 76.8ms | ActiveRecord: 3.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:43:03 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.2ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (12.9ms)
+Completed 500 Internal Server Error in 160ms (ActiveRecord: 3.1ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /Volumes/almarev/mys/prolam/app/assets/config
+  /Volumes/almarev/mys/prolam/app/assets/images
+  /Volumes/almarev/mys/prolam/app/assets/javascripts
+  /Volumes/almarev/mys/prolam/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/fonts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actioncable-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actionview-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /Volumes/almarev/mys/prolam/node_modules
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/javascripts):
+     5:   <%= csrf_meta_tags %>
+     6: 
+     7:   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     8:   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     9: </head>
+    10: 
+    11: <body>
+  
+app/assets/javascripts/application.js:16
+app/views/layouts/application.html.erb:8:in `_app_views_layouts_application_html_erb___2716760312798353110_70210876514120'
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:43:13 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.2ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (12.8ms)
+Completed 500 Internal Server Error in 64ms (ActiveRecord: 2.9ms)
+
+
+  
+ActionView::Template::Error (couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /Volumes/almarev/mys/prolam/app/assets/config
+  /Volumes/almarev/mys/prolam/app/assets/images
+  /Volumes/almarev/mys/prolam/app/assets/javascripts
+  /Volumes/almarev/mys/prolam/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/fonts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actioncable-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actionview-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /Volumes/almarev/mys/prolam/node_modules
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/javascripts):
+     5:   <%= csrf_meta_tags %>
+     6: 
+     7:   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+     8:   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     9: </head>
+    10: 
+    11: <body>
+  
+app/assets/javascripts/application.js:16
+app/views/layouts/application.html.erb:8:in `_app_views_layouts_application_html_erb___2716760312798353110_70210840159160'
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:43:52 -0400
+  [1m[35m (21.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.5ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.4ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (92.8ms)
+Completed 500 Internal Server Error in 722ms (ActiveRecord: 18.5ms)
+
+
+
+Sprockets::FileNotFound - couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /Volumes/almarev/mys/prolam/app/assets/config
+  /Volumes/almarev/mys/prolam/app/assets/images
+  /Volumes/almarev/mys/prolam/app/assets/javascripts
+  /Volumes/almarev/mys/prolam/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/fonts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actioncable-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actionview-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /Volumes/almarev/mys/prolam/node_modules
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/javascripts:
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:182:in `rescue in block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:179:in `block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:178:in `process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:83:in `_call'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:68:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+  sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+  sprockets (3.7.1) lib/sprockets/base.rb:73:in `find_all_linked_assets'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:142:in `block in find'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:114:in `block (2 levels) in logical_paths'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:228:in `block in stat_tree'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:212:in `block in stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:209:in `stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:227:in `stat_tree'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:105:in `block in logical_paths'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:104:in `logical_paths'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:140:in `find'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:50:in `precompiled_assets'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:35:in `asset_precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:251:in `block (3 levels) in <class:Railtie>'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:359:in `precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:363:in `raise_unless_precompiled_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:348:in `find_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+  app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb__856741455910344624_70228967299080'
+  actionview (5.1.3) lib/action_view/template.rb:157:in `block in render'
+  activesupport (5.1.3) lib/active_support/notifications.rb:168:in `instrument'
+  actionview (5.1.3) lib/action_view/template.rb:352:in `instrument_render_template'
+  actionview (5.1.3) lib/action_view/template.rb:155:in `render'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:14:in `render'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (5.1.3) lib/action_view/rendering.rb:103:in `_render_template'
+  actionpack (5.1.3) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (5.1.3) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+  actionpack (5.1.3) lib/abstract_controller/rendering.rb:24:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:36:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /Users/reoki/.rvm/rubies/ruby-2.2.6/lib/ruby/2.2.0/benchmark.rb:303:in `realtime'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:186:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:131:in `run_callbacks'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rescue.rb:20:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `block in instrument'
+  activesupport (5.1.3) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `instrument'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:124:in `process'
+  actionview (5.1.3) lib/action_view/rendering.rb:30:in `process'
+  actionpack (5.1.3) lib/action_controller/metal.rb:189:in `dispatch'
+  actionpack (5.1.3) lib/action_controller/metal.rb:253:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:46:in `block in serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:33:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:834:in `call'
+  warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+  warden (1.2.7) lib/warden/manager.rb:35:in `call'
+  rack (2.0.3) lib/rack/etag.rb:25:in `call'
+  rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+  rack (2.0.3) lib/rack/head.rb:12:in `call'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+  activerecord (5.1.3) lib/active_record/migration.rb:556:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+  web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+  web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+  railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+  sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+  rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+  rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+  activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+  rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+  railties (5.1.3) lib/rails/engine.rb:522:in `call'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/rack/thread_handler_extension.rb:97:in `process_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:152:in `accept_and_process_next_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:113:in `main_loop'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler.rb:416:in `block (3 levels) in start_threads'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/utils.rb:113:in `block in create_thread_and_abort_on_exception'
+
+Started POST "/__better_errors/4589569c629911df/variables" for 127.0.0.1 at 2017-08-31 18:43:54 -0400
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:45:23 -0400
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (162.8ms)
+Completed 500 Internal Server Error in 823ms (ActiveRecord: 18.1ms)
+
+
+
+Sprockets::FileNotFound - couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /Volumes/almarev/mys/prolam/app/assets/config
+  /Volumes/almarev/mys/prolam/app/assets/images
+  /Volumes/almarev/mys/prolam/app/assets/javascripts
+  /Volumes/almarev/mys/prolam/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/fonts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actioncable-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actionview-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /Volumes/almarev/mys/prolam/node_modules
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/javascripts:
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:182:in `rescue in block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:179:in `block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:178:in `process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:83:in `_call'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:68:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+  sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+  sprockets (3.7.1) lib/sprockets/base.rb:73:in `find_all_linked_assets'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:142:in `block in find'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:114:in `block (2 levels) in logical_paths'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:228:in `block in stat_tree'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:212:in `block in stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:209:in `stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:227:in `stat_tree'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:105:in `block in logical_paths'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:104:in `logical_paths'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:140:in `find'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:50:in `precompiled_assets'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:35:in `asset_precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:251:in `block (3 levels) in <class:Railtie>'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:359:in `precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:363:in `raise_unless_precompiled_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:348:in `find_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+  app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___1564213349496268276_70285797760300'
+  actionview (5.1.3) lib/action_view/template.rb:157:in `block in render'
+  activesupport (5.1.3) lib/active_support/notifications.rb:168:in `instrument'
+  actionview (5.1.3) lib/action_view/template.rb:352:in `instrument_render_template'
+  actionview (5.1.3) lib/action_view/template.rb:155:in `render'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:14:in `render'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (5.1.3) lib/action_view/rendering.rb:103:in `_render_template'
+  actionpack (5.1.3) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (5.1.3) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+  actionpack (5.1.3) lib/abstract_controller/rendering.rb:24:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:36:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /Users/reoki/.rvm/rubies/ruby-2.2.6/lib/ruby/2.2.0/benchmark.rb:303:in `realtime'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:186:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:131:in `run_callbacks'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rescue.rb:20:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `block in instrument'
+  activesupport (5.1.3) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `instrument'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:124:in `process'
+  actionview (5.1.3) lib/action_view/rendering.rb:30:in `process'
+  actionpack (5.1.3) lib/action_controller/metal.rb:189:in `dispatch'
+  actionpack (5.1.3) lib/action_controller/metal.rb:253:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:46:in `block in serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:33:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:834:in `call'
+  warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+  warden (1.2.7) lib/warden/manager.rb:35:in `call'
+  rack (2.0.3) lib/rack/etag.rb:25:in `call'
+  rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+  rack (2.0.3) lib/rack/head.rb:12:in `call'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+  activerecord (5.1.3) lib/active_record/migration.rb:556:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+  web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+  web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+  railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+  sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+  rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+  rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+  activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+  rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+  railties (5.1.3) lib/rails/engine.rb:522:in `call'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/rack/thread_handler_extension.rb:97:in `process_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:152:in `accept_and_process_next_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:113:in `main_loop'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler.rb:416:in `block (3 levels) in start_threads'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/utils.rb:113:in `block in create_thread_and_abort_on_exception'
+
+Started POST "/__better_errors/d255ae7b8128d530/variables" for 127.0.0.1 at 2017-08-31 18:45:25 -0400
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:47:19 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (17.4ms)
+Completed 500 Internal Server Error in 192ms (ActiveRecord: 3.9ms)
+
+
+
+Sprockets::FileNotFound - couldn't find file 'popper' with type 'application/javascript'
+Checked in these paths: 
+  /Volumes/almarev/mys/prolam/app/assets/config
+  /Volumes/almarev/mys/prolam/app/assets/images
+  /Volumes/almarev/mys/prolam/app/assets/javascripts
+  /Volumes/almarev/mys/prolam/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/jquery-rails-4.3.1/vendor/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/coffee-rails-4.2.2/lib/assets/javascripts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/fonts
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/font-awesome-rails-4.7.0.2/app/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actioncable-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/actionview-5.1.3/lib/assets/compiled
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/turbolinks-source-5.0.3/lib/assets/javascripts
+  /Volumes/almarev/mys/prolam/node_modules
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/stylesheets
+  /Users/reoki/.rvm/gems/ruby-2.2.6/gems/bootstrap-4.0.0.alpha6/assets/javascripts:
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:182:in `rescue in block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:179:in `block in process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:178:in `process_directives'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:83:in `_call'
+  sprockets (3.7.1) lib/sprockets/directive_processor.rb:68:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:23:in `block in call'
+  sprockets (3.7.1) lib/sprockets/utils.rb:200:in `dfs'
+  sprockets (3.7.1) lib/sprockets/bundle.rb:24:in `call'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:75:in `call_processor'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:57:in `block in call_processors'
+  sprockets (3.7.1) lib/sprockets/processor_utils.rb:56:in `call_processors'
+  sprockets (3.7.1) lib/sprockets/loader.rb:134:in `load_from_unloaded'
+  sprockets (3.7.1) lib/sprockets/loader.rb:60:in `block in load'
+  sprockets (3.7.1) lib/sprockets/loader.rb:317:in `fetch_asset_from_dependency_cache'
+  sprockets (3.7.1) lib/sprockets/loader.rb:44:in `load'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:20:in `block in initialize'
+  sprockets (3.7.1) lib/sprockets/cached_environment.rb:47:in `load'
+  sprockets (3.7.1) lib/sprockets/base.rb:66:in `find_asset'
+  sprockets (3.7.1) lib/sprockets/base.rb:73:in `find_all_linked_assets'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:142:in `block in find'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:114:in `block (2 levels) in logical_paths'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:228:in `block in stat_tree'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:212:in `block in stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:209:in `stat_directory'
+  sprockets (3.7.1) lib/sprockets/path_utils.rb:227:in `stat_tree'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:105:in `block in logical_paths'
+  sprockets (3.7.1) lib/sprockets/legacy.rb:104:in `logical_paths'
+  sprockets (3.7.1) lib/sprockets/manifest.rb:140:in `find'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:50:in `precompiled_assets'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:35:in `asset_precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/railtie.rb:251:in `block (3 levels) in <class:Railtie>'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:359:in `precompiled?'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:363:in `raise_unless_precompiled_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:348:in `find_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:229:in `block in lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:242:in `block in resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:241:in `resolve_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:228:in `lookup_debug_asset'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:170:in `block in stylesheet_link_tag'
+  sprockets-rails (3.2.0) lib/sprockets/rails/helper.rb:169:in `stylesheet_link_tag'
+  app/views/layouts/application.html.erb:7:in `_app_views_layouts_application_html_erb___1564213349496268276_70285780569980'
+  actionview (5.1.3) lib/action_view/template.rb:157:in `block in render'
+  activesupport (5.1.3) lib/active_support/notifications.rb:168:in `instrument'
+  actionview (5.1.3) lib/action_view/template.rb:352:in `instrument_render_template'
+  actionview (5.1.3) lib/action_view/template.rb:155:in `render'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:64:in `render_with_layout'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:50:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/template_renderer.rb:14:in `render'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:42:in `render_template'
+  actionview (5.1.3) lib/action_view/renderer/renderer.rb:23:in `render'
+  actionview (5.1.3) lib/action_view/rendering.rb:103:in `_render_template'
+  actionpack (5.1.3) lib/action_controller/metal/streaming.rb:217:in `_render_template'
+  actionview (5.1.3) lib/action_view/rendering.rb:83:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:52:in `render_to_body'
+  actionpack (5.1.3) lib/action_controller/metal/renderers.rb:141:in `render_to_body'
+  actionpack (5.1.3) lib/abstract_controller/rendering.rb:24:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:36:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block (2 levels) in render'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `block in ms'
+  /Users/reoki/.rvm/rubies/ruby-2.2.6/lib/ruby/2.2.0/benchmark.rb:303:in `realtime'
+  activesupport (5.1.3) lib/active_support/core_ext/benchmark.rb:12:in `ms'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:44:in `block in render'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:87:in `cleanup_view_runtime'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:29:in `cleanup_view_runtime'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:43:in `render'
+  actionpack (5.1.3) lib/action_controller/metal/implicit_render.rb:33:in `default_render'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `block in send_action'
+  actionpack (5.1.3) lib/action_controller/metal/basic_implicit_render.rb:4:in `send_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:186:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rendering.rb:30:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:20:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:131:in `run_callbacks'
+  actionpack (5.1.3) lib/abstract_controller/callbacks.rb:19:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/rescue.rb:20:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:32:in `block in process_action'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `block in instrument'
+  activesupport (5.1.3) lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+  activesupport (5.1.3) lib/active_support/notifications.rb:166:in `instrument'
+  actionpack (5.1.3) lib/action_controller/metal/instrumentation.rb:30:in `process_action'
+  actionpack (5.1.3) lib/action_controller/metal/params_wrapper.rb:252:in `process_action'
+  activerecord (5.1.3) lib/active_record/railties/controller_runtime.rb:22:in `process_action'
+  actionpack (5.1.3) lib/abstract_controller/base.rb:124:in `process'
+  actionview (5.1.3) lib/action_view/rendering.rb:30:in `process'
+  actionpack (5.1.3) lib/action_controller/metal.rb:189:in `dispatch'
+  actionpack (5.1.3) lib/action_controller/metal.rb:253:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:49:in `dispatch'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:31:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:46:in `block in serve'
+  actionpack (5.1.3) lib/action_dispatch/journey/router.rb:33:in `serve'
+  actionpack (5.1.3) lib/action_dispatch/routing/route_set.rb:834:in `call'
+  warden (1.2.7) lib/warden/manager.rb:36:in `block in call'
+  warden (1.2.7) lib/warden/manager.rb:35:in `call'
+  rack (2.0.3) lib/rack/etag.rb:25:in `call'
+  rack (2.0.3) lib/rack/conditional_get.rb:25:in `call'
+  rack (2.0.3) lib/rack/head.rb:12:in `call'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:232:in `context'
+  rack (2.0.3) lib/rack/session/abstract/id.rb:226:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/cookies.rb:613:in `call'
+  activerecord (5.1.3) lib/active_record/migration.rb:556:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:26:in `block in call'
+  activesupport (5.1.3) lib/active_support/callbacks.rb:97:in `run_callbacks'
+  actionpack (5.1.3) lib/action_dispatch/middleware/callbacks.rb:24:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:84:in `protected_app_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:79:in `better_errors_call'
+  better_errors (2.2.0) lib/better_errors/middleware.rb:57:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:59:in `call'
+  web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+  web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+  railties (5.1.3) lib/rails/rack/logger.rb:36:in `call_app'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `block in call'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (5.1.3) lib/active_support/tagged_logging.rb:69:in `tagged'
+  railties (5.1.3) lib/rails/rack/logger.rb:24:in `call'
+  sprockets-rails (3.2.0) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+  rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+  rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+  activesupport (5.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/executor.rb:12:in `call'
+  actionpack (5.1.3) lib/action_dispatch/middleware/static.rb:125:in `call'
+  rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+  railties (5.1.3) lib/rails/engine.rb:522:in `call'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/rack/thread_handler_extension.rb:97:in `process_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:152:in `accept_and_process_next_request'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler/thread_handler.rb:113:in `main_loop'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/request_handler.rb:416:in `block (3 levels) in start_threads'
+  passenger (5.1.2) src/ruby_supportlib/phusion_passenger/utils.rb:113:in `block in create_thread_and_abort_on_exception'
+
+Started POST "/__better_errors/8ef580bc000ae279/variables" for 127.0.0.1 at 2017-08-31 18:47:19 -0400
+  [1m[36mTarea Load (0.5ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.4ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.6ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCACHE Tarea Load (0.0ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1[0m  [["LIMIT", 10]]
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:47:28 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.4ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.3ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (12.4ms)
+  Rendered layouts/_navigation_links.html.erb (2.6ms)
+  Rendered layouts/_navigation.html.erb (31.3ms)
+Completed 200 OK in 550ms (Views: 539.4ms | ActiveRecord: 3.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-31 18:48:17 -0400
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 3 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE ("tareas"."user_id" = $1 AND "tareas"."estado_id" = 2 OR "tareas"."user_id" = $2 AND "tareas"."estado_id" = 1) ORDER BY "tareas"."fecha_fin" ASC LIMIT $3) subquery_for_count[0m  [["user_id", 4], ["user_id", 4], ["LIMIT", 10]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2) subquery_for_count[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mTarea Load (0.3ms)[0m  [1m[34mSELECT  "tareas".* FROM "tareas" WHERE "tareas"."user_id" = $1 AND "tareas"."estado_id" = 4 ORDER BY "tareas"."fecha_fin" ASC LIMIT $2[0m  [["user_id", 4], ["LIMIT", 10]]
+  [1m[36mCategoria Load (0.3ms)[0m  [1m[34mSELECT  "categoria".* FROM "categoria" WHERE "categoria"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEstado Load (0.2ms)[0m  [1m[34mSELECT  "estados".* FROM "estados" WHERE "estados"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "tareas" WHERE "tareas"."user_id" IS NULL LIMIT $1) subquery_for_count[0m  [["LIMIT", 10]]
+  Rendered home/index.html.erb within layouts/application (10.9ms)
+  Rendered layouts/_navigation_links.html.erb (2.3ms)
+  Rendered layouts/_navigation.html.erb (6.8ms)
+Completed 200 OK in 85ms (Views: 75.7ms | ActiveRecord: 2.8ms)
+
+

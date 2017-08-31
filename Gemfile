@@ -4,16 +4,19 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
+# My gems
 #agregando devise para el manejo de usuario
 gem 'devise'
 gem 'bootstrap', '4.0.0.alpha6'
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 #para desarrollo
 gem 'sqlite3'
+
+
 
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
@@ -49,6 +52,10 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+
+  gem "better_errors"
+  gem "binding_of_caller"
+  
 end
 
 group :development do
