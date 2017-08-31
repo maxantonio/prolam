@@ -1,3 +1,10 @@
 <%# add navigation links to this file %>
-<div class='nav-item  <%= active_class(edit_user_path(current_user))%>'><%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%>
-</div>
+<li class='nav-item  <%= active_class(edit_user_path(current_user))%>'><%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%></li>
+  <% if current_user.is_admin? %>
+      <li class='nav-item  <%= active_class(users_path)%>'>  <%= link_to 'Usuarios', users_path,:class => "nav-link" %></li>
+      <li class='nav-item  <%= active_class(tareas_path)%>'>  <%= link_to 'Tareas', tareas_path,:class => "nav-link" %></li>
+      <li class='nav-item  <%= active_class(proyectos_path)%>'>  <%= link_to 'Proyectos', proyectos_path ,:class => "nav-link" %></li>
+      <li class='nav-item  <%= active_class(categoria_path)%>'>  <%= link_to 'Categorias', categoria_path ,:class => "nav-link"%></li>
+      <li class='nav-item  <%= active_class(estados_path)%>'>  <%= link_to 'Estados', estados_path ,:class => "nav-link"%></li>
+  <% end %>
+

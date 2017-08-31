@@ -1,6 +1,6 @@
 class Tarea < ApplicationRecord
-  belongs_to :user
-  belongs_to :categoria
-  belongs_to :estado
-  belongs_to :proyecto
+  belongs_to :user, optional: true
+  belongs_to :categoria, optional: true
+  belongs_to :estado, optional: true
+  belongs_to :proyecto, optional: true
 end

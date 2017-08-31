@@ -26,7 +26,7 @@
                     <%= avatar_menu(current_user, "img_prev") %>
                   </div>
                   <div class="col-md-9">
-                    Biembenido:<br/>
+                    Bienvenido:<br/>
                   <a href="#" class="">
                     <%= current_user.email %>
                   </a>
@@ -40,7 +40,7 @@
                   <a href="/" class="nav-link <%= active_class("/")%>">Mis tareas</a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link">Tareas de todos</a>
+                  <%= link_to "Tareas de todos",tareas_path,:class => "nav-link #{active_class(tareas_path)}" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to ' Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete,:class => "nav-link" %>
@@ -55,7 +55,7 @@
               </ul>
       </nav>
   <% end %>
-  <div class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+  <div class="col-sm-9 col-md-10 pt-3 ml-sm-auto ml-md-auto ml-auto"  role="main">
     <section id="content">
       <!--<div class="container">-->
         <p class="notice"><%= notice %></p>

@@ -13,17 +13,18 @@
 
   <div class="field">
     <%= form.label :nombre %>
-    <%= form.text_field :nombre, id: :proyecto_nombre %>
+    <%= form.text_field :nombre, id: :proyecto_nombre ,:class=>"form-control"%>
   </div>
 
   <div class="field">
-    <%= form.label :urlgithu %>
-    <%= form.text_field :urlgithu, id: :proyecto_urlgithu %>
+    <%= form.label :urlgithub %>
+    <%= form.text_field :urlgithub, id: :proyecto_urlgithu,:class=>"form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :reponsable %>
-    <%= form.text_field :reponsable, id: :proyecto_reponsable %>
+    <%= form.label :user %>
+    <%= form.collection_select :user_id, User.all, :id, :username,{prompt:true,autofocus: true ,class:"form-control"},class:"form-control"%>
+
   </div>
 
   <div class="actions">
