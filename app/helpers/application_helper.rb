@@ -35,7 +35,7 @@ module ApplicationHelper
       #  image_tag "default/default-avatar.png", id:cl, class:cl, width: '100%', height: '100%'
     else
       p user.avatar
-      image_tag user.avatar.url(:avatar_sizemenu), class: cl
+      image_tag user.avatar.url(:avatar_sizemenu), class: cl, style: 'height: 50px; width:50px;'
     end
   end
 end
