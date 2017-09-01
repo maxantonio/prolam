@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'iniciar/tarea'=>'tareas#iniciar'
   get 'terminar/tarea'=>'tareas#terminar'
+  get 'historicos'=>'tareas#historicos'
+  get 'otros'=>'tareas#otros'
   devise_for :users
   scope "/admin" do
     resources :users

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tareas</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Responsable</th>
+      <th>Categoria</th>
+      <th>Fecha asignacion</th>
+      <th>Fecha fin</th>
+      <th>Estado</th>
+      <th>Proyecto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tareas.each do |tarea| %>
+      <tr>
+        <td><%= tarea.nombre %></td>
+        <td><%= tarea.user.nil?? "Sin asignar":tarea.user.username %></td>
+        <td><%= tarea.categoria.nil?? "":tarea.categoria.nombre %></td>
+        <td><%= tarea.fecha_asignacion %></td>
+        <td><%= tarea.fecha_fin %></td>
+        <td><%= tarea.estado.nil?? "":tarea.estado.estado %></td>
+        <td><%= tarea.proyecto.nil?? "":tarea.proyecto.nombre %></td>
+        <td><%= link_to 'Mostrar', tarea %></td>
+        <td><%= link_to 'Editar', edit_tarea_path(tarea) %></td>
+        <td><%= link_to 'Eliminar', tarea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nueva Tarea', new_tarea_path %>

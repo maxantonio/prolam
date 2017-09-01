@@ -1,5 +1,5 @@
-<%# add navigation links to this file %>
-<li class='nav-item  <%= active_class(edit_user_path(current_user))%>'><%= link_to 'Mi Perfil', edit_user_path(current_user),:class => "nav-link #{active_class(edit_user_path(current_user))}"%></li>
+<%# add navigation links to this file %><%= link_to 'Nueva Tarea', new_tarea_path %>
+<li class='nav-item  <%= active_class(edit_user_path(current_user))%>'><%= link_to 'Nueva tarea',new_tarea_path,:class => "nav-link #{active_class(new_tarea_path)}"%></li>
   <% if current_user.is_admin? %>
       <li class='nav-item  <%= active_class(users_path)%>'>  <%= link_to 'Usuarios', users_path,:class => "nav-link" %></li>
       <li class='nav-item  <%= active_class(tareas_path)%>'>  <%= link_to 'Tareas', tareas_path,:class => "nav-link" %></li>

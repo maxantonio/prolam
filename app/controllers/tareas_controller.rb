@@ -3,6 +3,12 @@ class TareasController < ApplicationController
   before_action :authenticate_user!
   # GET /tareas
   # GET /tareas.json
+  def historicos
+    @tareas = Tarea.where(:estado=>4).order('fecha_fin DESC')
+  end
+  def otros
+    @tareas = Tarea.where('estado_id<>4').order('fecha_fin DESC')
+  end
   def index
     @tareas = Tarea.all
   end
