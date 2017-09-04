@@ -14,4 +14,5 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap
+//= require prolam
 //= require_tree .

@@ -22,6 +22,9 @@ class TareasController < ApplicationController
   def new
     @tarea = Tarea.new
     @tarea.estado_id = 1 #CREADA
+    if request.xhr?
+      render :layout => false
+    end
   end
 
   # GET /tareas/1/edit
