@@ -3,10 +3,6 @@ $(document).on('turbolinks:load',function(){
         console.log("mosotrando el resultado de dar click en ",$(e));
         var url = $(this).attr("data-urlload")
         $("#modalBody").load(url);
-        alert(url);
-    })
 
-    $('#prebas').click(function(e){
-        alert("pruebas si")
     })
 });

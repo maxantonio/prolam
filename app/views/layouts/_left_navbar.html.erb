@@ -30,10 +30,11 @@
     </li>
 
     <% if current_user.is_colaborador? %>
-        <li class="nav-item"><a href="/home/index" class="nav-link"> Link unico de colaborador</a></li>
+        <li class="nav-item"><a href="/home/index" class="nav-link">Estadisticas</a></li>
     <% end %>
     <% if current_user.is_admin? %>
-        <li class="nav-item"><a href="/admin/users/IMPLEMENTAR" class="nav-link">Link unico de admin</a></li>
+        <li class="nav-item"><a href="/home/index" class="nav-link">Estadisticas</a></li>
+        <!--<li class="nav-item"><a href="/admin/users/IMPLEMENTAR" class="nav-link"></a></li>-->
     <% end %>
   </ul>
 </nav>
